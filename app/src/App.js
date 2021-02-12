@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import MainSearch from "View/MainSearch";
+import Main from "View/Main";
 
 import "Styles/reset.scss";
 import "Styles/global.scss";
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route component={MainSearch} exact path="/" />
+          <Route component={Main} exact path="/" />
         </Switch>
       </Router>
     );

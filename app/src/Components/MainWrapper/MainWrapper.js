@@ -5,9 +5,7 @@ import { MainStyled, MainContentStyled } from "./MainWrapper.styled";
 const MainWrapper = ({ children }) => {
   return (
     <MainStyled>
-      <MainContentStyled>
-        {children}
-      </MainContentStyled>
+      <MainContentStyled>{children}</MainContentStyled>
     </MainStyled>
   );
 };
