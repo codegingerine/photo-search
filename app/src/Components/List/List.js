@@ -8,7 +8,11 @@ const List = ({ listMapped, className }) => {
     <ListStyled className={className}>
       {listMapped.map(({ id, urls, alt_description }) => {
         return (
-          <ImageBox key={id} imgSrc={urls.regular} imgAlt={alt_description} />
+          <ImageBox
+            key={id}
+            imgSrc={urls.regular}
+            imgAlt={alt_description !== null ? alt_description : ""}
+          />
         );
       })}
     </ListStyled>
