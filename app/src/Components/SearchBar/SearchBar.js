@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import {
   SearchBarStyled,
@@ -31,6 +32,15 @@ const SearchBar = ({ onSubmit, placeholder, value, onChange, onClose, type = "la
       </SearchFormStyled>
     </SearchBarStyled>
   );
+};
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  type: PropTypes.oneOf(['large', 'medium'])
 };
 
 export default SearchBar;
