@@ -11,9 +11,9 @@ import {
   CloseIconStyled
 } from "./SearchBar.styled";
 
-const SearchBar = ({ onSubmit, placeholder, value, onChange, onClose, type = "large" }) => {
+const SearchBar = ({ onSubmit, placeholder, value, onChange, onClose, type = "large", className }) => {
   return (
-    <SearchBarStyled >
+    <SearchBarStyled className={className}>
       <SearchFormStyled onSubmit={onSubmit}>
         <SearchButtonStyled type="submit">
           <SearchIcontyled />
