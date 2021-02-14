@@ -30,4 +30,5 @@ export const MainDescriptStyled = styled.p`
   font-size: 18px;
   font-weight: 400;
   color: #fff;
+  margin-bottom: 24px;
 `;
