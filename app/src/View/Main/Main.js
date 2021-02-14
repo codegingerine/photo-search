@@ -25,7 +25,10 @@ const Main = () => {
 
   const handleQuery = (e) => {
     e.preventDefault();
-    history.push("/search");
+    history.push({
+      pathname: "/search/",
+      search: `?query=${query}`,
+    });
   };
 
   return (
