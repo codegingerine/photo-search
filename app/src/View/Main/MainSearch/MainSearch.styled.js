@@ -7,6 +7,9 @@ export const MainSearchStyled = styled.div`
   justify-content: center;
   background: #afafaf;
   margin-bottom: 48px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 export const MainSearchContentStyled = styled.div`

@@ -16,9 +16,10 @@ const MainSearch = ({
   value,
   onChange,
   onClose,
+  backgroundImage,
 }) => {
   return (
-    <MainSearchStyled>
+    <MainSearchStyled style={{ backgroundImage: `url(${backgroundImage})` }}>
       <MainSearchContentStyled>
         <MainTitleStyled>{title}</MainTitleStyled>
         <MainDescriptStyled>{description}</MainDescriptStyled>
@@ -36,7 +37,8 @@ const MainSearch = ({
 
 MainSearch.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired
+  description: PropTypes.string.isRequired,
+  backgroundImage: PropTypes.string.isRequired,
 };
 
 export default MainSearch;
