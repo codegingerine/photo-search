@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import useOnClickOutside from "Utils/useOnClickOutside";
 import ModalTop from "./ModalTop";
@@ -51,6 +52,13 @@ const Modal = ({ isOpen, onClose, modalListMapped, toggleModal }) => {
       modalRoot
     )
   );
+};
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  modalListMapped: PropTypes.array,
+  toggleModal: PropTypes.func,
 };
 
 export default Modal;
