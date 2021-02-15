@@ -6,9 +6,11 @@ import { ListStyled } from "./List.styled";
 
 const List = ({ listMapped, className }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [modalList, setModalList] = useState([]);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (currentIndex) => {
     setOpenModal(true);
+    setModalList(listMapped.filter((_, index) => index === currentIndex));
   };
 
   const handleCloseModal = () => {
@@ -24,12 +26,16 @@ const List = ({ listMapped, className }) => {
               key={id}
               imgSrc={urls.regular}
               imgAlt={alt_description !== null ? alt_description : ""}
-              onClick={handleOpenModal}
+              onClick={() => handleOpenModal(index)}
             />
           );
         })}
       </ListStyled>
-      <Modal isOpen={openModal} onClose={handleCloseModal} />
+      <Modal
+        isOpen={openModal}
+        onClose={handleCloseModal}
+        modalListMapped={modalList}
+      />
     </>
   );
 };

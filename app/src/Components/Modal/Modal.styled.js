@@ -1,5 +1,7 @@
 import styled, { keyframes } from "styled-components";
+import { media } from "Utils/media";
 import { ReactComponent as CloseIcon } from "Assets/svg/cancel-ico.svg";
+import ImageBox from "Components/ImageBox";
 
 const animModalOnShow = keyframes`
   from {
@@ -33,18 +35,36 @@ export const ModalStyled = styled.div`
 `;
 
 export const ModalContentStyled = styled.div`
-  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: #fff;
   margin: 32px 0 100px;
+  padding: 0 0 24px 0;
   border-radius: 4px;
   box-shadow: 0 8px 16px rgb(0 0 0 / 15%);
+`;
+
+export const ImageBoxStyled = styled(ImageBox)`
+  padding: 10px 0;
+  margin-bottom: 0;
+
+  ${media.tablet`
+    padding: 10px 16px;
+  `}
+`;
+
+export const ModalBottomStyled = styled.span`
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
 `;
 
 export const CloseIconStyled = styled(CloseIcon)`
   display: block;
   width: 10px;
   height: 10px;
-  fill: #FFF;
+  fill: #fff;
   transition: fill 0.2s ease;
 `;
 
