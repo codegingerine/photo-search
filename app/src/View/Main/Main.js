@@ -8,7 +8,7 @@ import List from "Components/List";
 const Main = () => {
   const [photos, setPhotos] = useState([]);
   const [query, setQuery] = useState("");
-  const [randomPhoto, setRandomPhoto] = useState();
+  const [randomPhoto, setRandomPhoto] = useState("");
 
   let history = useHistory();
 
