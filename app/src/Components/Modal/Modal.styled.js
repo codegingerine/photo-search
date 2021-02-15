@@ -30,7 +30,7 @@ export const ModalStyled = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  margin: 0 auto;
+  margin: 32px auto 100px;
   z-index: 100;
 `;
 
@@ -39,7 +39,6 @@ export const ModalContentStyled = styled.div`
   flex-direction: column;
   align-items: center;
   background: #fff;
-  margin: 32px 0 100px;
   padding: 0 0 24px 0;
   border-radius: 4px;
   box-shadow: 0 8px 16px rgb(0 0 0 / 15%);

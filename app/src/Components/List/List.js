@@ -8,14 +8,12 @@ const List = ({ listMapped, className }) => {
   const [openModal, setOpenModal] = useState(false);
   const [modalList, setModalList] = useState([]);
 
-  const handleOpenModal = (currentIndex) => {
-    setOpenModal(true);
+  const handleToggleModal = (currentIndex) => {
+    setOpenModal(!openModal);
     setModalList(listMapped.filter((_, index) => index === currentIndex));
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+  const handleToggle = () => setOpenModal(!openModal);
 
   return (
     <>
@@ -26,16 +24,19 @@ const List = ({ listMapped, className }) => {
               key={id}
               imgSrc={urls.regular}
               imgAlt={alt_description !== null ? alt_description : ""}
-              onClick={() => handleOpenModal(index)}
+              onClick={() => handleToggleModal(index)}
             />
           );
         })}
       </ListStyled>
-      <Modal
-        isOpen={openModal}
-        onClose={handleCloseModal}
-        modalListMapped={modalList}
-      />
+      {openModal && (
+        <Modal
+          isOpen={openModal}
+          toggleModal={handleToggle}
+          onClose={handleToggle}
+          modalListMapped={modalList}
+        />
+      )}
     </>
   );
 };

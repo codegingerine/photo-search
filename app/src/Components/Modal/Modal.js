@@ -1,5 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useRef } from "react";
+import { createPortal } from "react-dom";
+import useOnClickOutside from "Utils/useOnClickOutside";
 import ModalTop from "./ModalTop";
 import {
   ModalOverlayStyled,
@@ -11,14 +12,18 @@ import {
   CloseIconStyled,
 } from "./Modal.styled";
 
-const Modal = ({ isOpen, onClose, modalListMapped }) => {
+const Modal = ({ isOpen, onClose, modalListMapped, toggleModal }) => {
   const modalRoot = document.getElementById("modal-root");
+  const ref = useRef();
+
+  useOnClickOutside(ref, () => toggleModal());
+  if (!isOpen) return;
 
   return (
     isOpen &&
-    ReactDOM.createPortal(
+    createPortal(
       <ModalOverlayStyled>
-        <ModalStyled>
+        <ModalStyled ref={(node) => (ref.current = node)}>
           {modalListMapped.map(({ id, urls, alt_description, user }) => {
             return (
               <ModalContentStyled key={id}>
