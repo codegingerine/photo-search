@@ -13,13 +13,14 @@ const animModalOnShow = keyframes`
 `;
 
 export const ModalOverlayStyled = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
   animation: ${animModalOnShow} 0.5s ease-in-out;
+  overflow: auto;
   z-index: 99;
 `;
 

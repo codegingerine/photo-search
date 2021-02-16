@@ -18,10 +18,10 @@ const Main = () => {
 
   useEffect(() => {
     fetchRandomPhoto();
-  }, []);
+  }, []);q
 
   const fetchPhotos = () => {
-    fetch(`${BASE_URL}/photos/?client_id=${API_KEY}`)
+    fetch(`${BASE_URL}/photos/?page=1&per_page=30&client_id=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => {
         setPhotos(data);
