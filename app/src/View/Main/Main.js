@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { BASE_URL, API_KEY } from "Utils/api";
 import MainWrapper from "Components/MainWrapper";
 import MainSearch from "./MainSearch";
@@ -8,6 +9,9 @@ import List from "Components/List";
 const Main = () => {
   const [photos, setPhotos] = useState([]);
   const [query, setQuery] = useState("");
+  const [hasMore, sethasMore] = useState(true);
+  const [page, setPage] = useState(1);
+  const perPage = 10;
 
   let history = useHistory();
 
@@ -16,11 +20,11 @@ const Main = () => {
   }, []);
 
   const fetchPhotos = () => {
-    fetch(`${BASE_URL}/photos/?page=1&per_page=30&client_id=${API_KEY}`)
+    fetch(`${BASE_URL}/photos/?page=${page}&per_page=${perPage}&client_id=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => {
-        setPhotos(data);
-        console.log("data", data);
+        setPhotos([...photos, ...data]);
+        setPage(page + 1);
       });
   };
 
@@ -47,7 +51,15 @@ const Main = () => {
         onChange={handleInputChange}
         onClose={handleClear}
       />
-      <List listMapped={photos} />
+      <InfiniteScroll
+        dataLength={photos.length}
+        next={fetchPhotos}
+        hasMore={hasMore}
+        loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
+        endMessage={<p style={{ textAlign: "center" }}>You have seen it all</p>}
+      >
+        <List listMapped={photos} />
+      </InfiniteScroll>
     </MainWrapper>
   );
 };
