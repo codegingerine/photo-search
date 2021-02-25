@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { BASE_URL, API_KEY } from "Utils/api";
 import MainWrapper from "Components/MainWrapper";
 import List from "Components/List";
@@ -10,43 +11,77 @@ import {
 } from "./Search.styled";
 
 const Search = () => {
+  const [photos, setPhotos] = useState([]);
+  const [initialPhotos, setInitialPhotos] = useState([]);
   const [query, setQuery] = useState("");
-  const [queryItems, setQueryItems] = useState([]);
+  const [hasMore, sethasMore] = useState(true);
+  const [page, setPage] = useState(1);
   const [title, setTitle] = useState("");
-  let history = useHistory();
+  const perPage = 4;
 
+  const prevQueryRef = useRef();
+
+  let history = useHistory();
   const search = useLocation().search;
   const queryParam = new URLSearchParams(search).get("query");
 
   useEffect(() => {
-    queryParam && setQuery(queryParam);
+    if (!queryParam) return;
+    setQuery(queryParam);
+    fetch(
+      `${BASE_URL}/search/photos/?query=${queryParam}&page=${page}&per_page=${perPage}&client_id=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setPhotos([...photos, ...data.results]);
+        setTitle(queryParam);
+        setPage(page + 1);
+      });
+    history.push({});
   }, []);
 
   useEffect(() => {
-    queryParam &&
-      fetch(
-        `${BASE_URL}/search/photos/?query=${queryParam}&client_id=${API_KEY}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setQueryItems(data.results);
-          setTitle(queryParam);
-        });
-  }, []);
+    prevQueryRef.current = query;
+  });
 
-  const handleInputChange = (e) => setQuery(e.target.value);
+  const prevQuery = prevQueryRef.current;
 
-  const handleClear = () => setQuery("");
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleClear = () => {
+    setQuery("");
+    setTitle("");
+    setInitialPhotos([]);
+    setPhotos([]);
+  };
 
   const handleQuery = (e) => {
     e.preventDefault();
-    fetch(`${BASE_URL}/search/photos/?query=${query}&client_id=${API_KEY}`)
+    if (query !== prevQuery) {
+      setPhotos([]);
+      fetch(
+        `${BASE_URL}/search/photos/?query=${query}&page=${page}&per_page=${perPage}&client_id=${API_KEY}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setInitialPhotos(data.results);
+          setTitle(query);
+          setPage(page + 1);
+        });
+    }
+  };
+
+  const fetchPhotos = () => {
+    fetch(
+      `${BASE_URL}/search/photos/?query=${query}&page=${page}&per_page=${perPage}&client_id=${API_KEY}`
+    )
       .then((res) => res.json())
       .then((data) => {
-        setQueryItems(data.results);
-        setTitle(query);
+        setPhotos([...photos, ...data.results]);
+        setPage(page + 1);
       });
-    history.push(`/search/?query=${query}`);
   };
 
   return (
@@ -62,7 +97,15 @@ const Search = () => {
         />
         <SearchTitleStyled>{title}</SearchTitleStyled>
       </SearchStyled>
-      <List listMapped={queryItems} />
+      <InfiniteScroll
+        dataLength={photos.length}
+        next={fetchPhotos}
+        hasMore={hasMore}
+        loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
+        endMessage={<p style={{ textAlign: "center" }}>You have seen it all</p>}
+      >
+        <List listMapped={[...initialPhotos, ...photos]} />
+      </InfiniteScroll>
     </MainWrapper>
   );
 };
