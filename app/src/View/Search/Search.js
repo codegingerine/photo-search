@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { BASE_URL, API_KEY } from "Utils/api";
+import InfiniteScroll from "Components/InfiniteScroll";
 import MainWrapper from "Components/MainWrapper";
 import List from "Components/List";
 import {
@@ -17,7 +17,7 @@ const Search = () => {
   const [hasMore, sethasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [title, setTitle] = useState("");
-  const perPage = 4;
+  const perPage = 12;
 
   const prevQueryRef = useRef();
 
@@ -101,8 +101,8 @@ const Search = () => {
         dataLength={photos.length}
         next={fetchPhotos}
         hasMore={hasMore}
-        loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
-        endMessage={<p style={{ textAlign: "center" }}>You have seen it all</p>}
+        loaderText="Loading..."
+        endMessageText="You have seen it all"
       >
         <List listMapped={[...initialPhotos, ...photos]} />
       </InfiniteScroll>

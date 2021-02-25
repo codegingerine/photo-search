@@ -20,7 +20,9 @@ const Main = () => {
   }, []);
 
   const fetchPhotos = () => {
-    fetch(`${BASE_URL}/photos/?page=${page}&per_page=${perPage}&client_id=${API_KEY}`)
+    fetch(
+      `${BASE_URL}/photos/?page=${page}&per_page=${perPage}&client_id=${API_KEY}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setPhotos([...photos, ...data]);
@@ -55,8 +57,8 @@ const Main = () => {
         dataLength={photos.length}
         next={fetchPhotos}
         hasMore={hasMore}
-        loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
-        endMessage={<p style={{ textAlign: "center" }}>You have seen it all</p>}
+        loaderText="Loading photos..."
+        endMessageText="You have seen it all"
       >
         <List listMapped={photos} />
       </InfiniteScroll>

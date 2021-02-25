@@ -3,8 +3,7 @@ import styled from "styled-components";
 export const MainStyled = styled.main`
   position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   height: 100%;
   min-height: 100vh;
   width: 100%;
