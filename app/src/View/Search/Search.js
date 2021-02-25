@@ -97,15 +97,17 @@ const Search = () => {
         />
         <SearchTitleStyled>{title}</SearchTitleStyled>
       </SearchStyled>
-      <InfiniteScroll
-        dataLength={photos.length}
-        next={fetchPhotos}
-        hasMore={hasMore}
-        loaderText="Loading..."
-        endMessageText="You have seen it all"
-      >
-        <List listMapped={[...initialPhotos, ...photos]} />
-      </InfiniteScroll>
+      {(initialPhotos.length > 0 || photos.length > 0) && (
+        <InfiniteScroll
+          dataLength={photos.length}
+          next={fetchPhotos}
+          hasMore={hasMore}
+          loaderText="Loading..."
+          endMessageText="You have seen it all"
+        >
+          <List listMapped={[...initialPhotos, ...photos]} />
+        </InfiniteScroll>
+      )}
     </MainWrapper>
   );
 };
