@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScroll from "Components/InfiniteScroll";
 import { BASE_URL, API_KEY } from "Utils/api";
 import MainWrapper from "Components/MainWrapper";
 import MainSearch from "./MainSearch";
@@ -53,15 +53,17 @@ const Main = () => {
         onChange={handleInputChange}
         onClose={handleClear}
       />
-      <InfiniteScroll
-        dataLength={photos.length}
-        next={fetchPhotos}
-        hasMore={hasMore}
-        loaderText="Loading photos..."
-        endMessageText="You have seen it all"
-      >
-        <List listMapped={photos} />
-      </InfiniteScroll>
+      {photos.length > 0 && (
+        <InfiniteScroll
+          dataLength={photos.length}
+          next={fetchPhotos}
+          hasMore={hasMore}
+          loaderText="Loading photos..."
+          endMessageText="You have seen it all"
+        >
+          <List listMapped={photos} />
+        </InfiniteScroll>
+      )}
     </MainWrapper>
   );
 };
